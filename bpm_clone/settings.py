@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'dashboard',
 ]
 
@@ -119,3 +120,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collected static files
+
+COMPRESS_URL = STATIC_URL
+# COMPRESS_ROOT = STATIC_ROOT
+
+
+
+# ============= Compressor Configurations ============ #
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'dashboard', 'static')
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
