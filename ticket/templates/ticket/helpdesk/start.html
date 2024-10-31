@@ -1,0 +1,51 @@
+{% extends "layout/_base.html" %}
+{% load viewflow static %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-6">Démarrer le Processus de Commande</h1>
+
+    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {% csrf_token %}
+        {{ activation.management_form }}
+
+        <div class="mb-4">
+            <label for="{{ form.title.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ form.title.label }}:
+            </label>
+            {{ form.title }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.contact.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ form.contact.label }}:
+            </label>
+            {{ form.contact }}
+        </div>
+
+        <div class="mb-4">
+            <label for="{{ form.details.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+                {{ form.details.label }}:
+            </label>
+            {{ form.details }}
+        </div>
+
+        <div class="flex items-center justify-between mt-4">
+            <button
+                type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800
+                focus:ring-4 focus:ring-blue-300 font-medium
+                rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                dark:bg-blue-600 dark:hover:bg-blue-700
+                focus:outline-none dark:focus:ring-blue-800"
+            >
+                Démarrer
+            </button>
+        </div>
+    </form>
+
+    {% if error %}
+    <p class="text-red-500 text-sm mt-4">{{ error }}</p>
+    {% endif %}
+</div>
+{% endblock content %}

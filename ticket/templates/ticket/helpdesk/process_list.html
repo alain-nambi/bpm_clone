@@ -1,0 +1,61 @@
+{% extends "layout/_base.html" %}
+{% load i18n viewflow static date_extras _utils_ %}
+{% block content %}
+
+<div class="col-md-12">
+  <a href="/ticket/helpdesk/start">
+      <button type="submit" class="py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+        Start
+      </button>
+  </a>
+
+  <div class="overflow-x-auto">
+    <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Titre</th>
+        <th>Durée</th>
+        <th>Créé par</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for process in process_list %}
+      <tr>
+        <td>
+          <a href="/ticket/helpdesk/{{ process.id }}" class="link">
+            {{ process.id }}
+          </a>
+        </td>
+        <td>
+          {{ process.ticket.title }}
+        </td>
+        <td>
+          {% calculate_duration process.created process.finished %}
+        </td>
+        <td>{% get_created_user process %}</td>
+        <th>{{ process.status }}</th>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+    <!-- foot -->
+    <tfoot>
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Favorite Color</th>
+        <th></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+</div
+
+
+
+{% endblock content %}
+

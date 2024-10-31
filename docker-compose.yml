@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_DB: bpm
+      POSTGRES_USER: bpm_user
+      POSTGRES_PASSWORD: bpm_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8020
+    volumes:
+      - .:/app
+    ports:
+      - "8020:8020"
+    environment:
+      DATABASE_URL: postgres://bpm_user:bpm_password@db/bpm
+
+volumes:
+  postgres_data:

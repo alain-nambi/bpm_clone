@@ -1,0 +1,79 @@
+{% extends "layout/_base.html" %}
+{% load i18n viewflow static date_extras %}
+{% block content %}
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Tâche
+                </th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    Durée
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Créé le
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Terminé le
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Propriétaire
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Assigné à
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Status
+                </th>
+            </tr>
+        </thead>
+
+        {% comment %}
+            {{ task_list }}
+            {{ process_list }}
+        {% endcomment %}
+
+        <tbody>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    #{{ process.id }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ process.ticket.title }}
+                </td>
+                <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                    {% calculate_duration process.created process.finished %}
+                </td>
+                <td class="px-6 py-4">
+                    {{ process.created }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ process.finished }}
+                </td>
+                <td class="px-6 py-4">
+                    {% for task in task_list %}
+                        {% if task.flow_task_type == 'START' %}
+                            {{ task.owner.username }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td class="px-6 py-4">
+                    {{ "Ajouter User Perm aux models" }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ process.status }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock content %}

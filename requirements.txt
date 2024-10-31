@@ -11,7 +11,7 @@ Click==7.0
 # dashboard==2.2.0
 Django==2.2.16
 django-annoying==0.10.7
-django-auth-ldap==2.0.0
+# django-auth-ldap==2.0.0
 # django-cors-headers==4.4.0
 django-debug-toolbar==3.1.1
 django-filter==1.1.0
@@ -26,12 +26,13 @@ idna==2.7
 itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
-Pillow==7.2.0
-psycopg2==2.8.3
+# Pillow==7.2.0
+# psycopg2==2.8.3
+# psycopg-binary
 pyasn1==0.4.3
 pyasn1-modules==0.2.2
 pycparser==2.18
-python-ldap==3.1.0
+# python-ldap==3.1.0
 pytz==2018.5
 requests==2.22.0
 six==1.11.0
@@ -40,3 +41,5 @@ six==1.11.0
 Unidecode==1.1.1
 urllib3==1.23
 Werkzeug==0.14.1
+django-compressor
+psycopg2-binary

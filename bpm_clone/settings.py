@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',
     'dashboard',
+    'ticket',
+    'viewflow',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,7 @@ WSGI_APPLICATION = 'bpm_clone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -82,6 +85,27 @@ DATABASES = {
     }
 }
 
+"""
+# Get the database URL from environment variables
+DATABASE_URL = os.environ.get('DATABASE_URL', 'postgres://bpm_user:bpm_password@localhost/bpm')
+
+# Parse the database URL
+url = urlparse(DATABASE_URL)
+
+# Configure the DATABASES setting
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': url.path[1:],  # Remove leading '/' from the database name
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port or '5432',  # Default PostgreSQL port
+    }
+}
+
+print(DATABASES)
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -120,19 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collected static files
 
 # =============== Login Configurations ============== #
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
-
-COMPRESS_URL = STATIC_URL
-# COMPRESS_ROOT = STATIC_ROOT
-
-
-
-# ============= Compressor Configurations ============ #
-COMPRESS_ROOT = os.path.join(BASE_DIR, 'dashboard', 'static')
-COMPRESS_ENABLED = True
-STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
